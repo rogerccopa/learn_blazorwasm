@@ -1,0 +1,22 @@
+﻿@page "/signin"
+@inherits SignInBase
+
+<div class="sign-form">
+    <p class="welcome-text">Hello @(string.IsNullOrEmpty(User.Username) ? "User": User.Username) - Today is @Day</p>
+    <EditForm Model="@User">
+        @* this built-in component will validate each form field against the Model (i.e. User) attribute annotations *@
+        <DataAnnotationsValidator />
+
+        <input type="text" class="sign-input form-control" placeholder="Username" @bind-value="User.Username" />
+        @*<ValidationInput @bind-Value="@Username"></ValidationInput>*@
+        <input type="password" class="sign-input form-control" placeholder="Password" @bind-value="User.Password" />
+
+        @* this built-in component will display any form validation errors *@
+        <ValidationSummary />
+        <button class="sign-button btn btn-primary" type="submit">Sign In</button>
+    </EditForm>
+
+    <div class="signup">
+        <a href="/signup">Sign Up</a>
+    </div>
+</div>
