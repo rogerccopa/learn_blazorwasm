@@ -7,12 +7,16 @@
         @* this built-in component will validate each form field against the Model (i.e. User) attribute annotations *@
         <DataAnnotationsValidator />
 
-        <input type="text" class="sign-input form-control" placeholder="Username" @bind-value="User.Username" />
-        @*<ValidationInput @bind-Value="@Username"></ValidationInput>*@
-        <input type="password" class="sign-input form-control" placeholder="Password" @bind-value="User.Password" />
+        @* @bind-value refers to HTML <input value="..." but, @bind-Value refers to this <InputText value property *@
+        <InputText type="text" class="sign-input form-control" placeholder="Username" @bind-Value="User.Username" />
+        <ValidationMessage For="@(() => User.Username)"></ValidationMessage>
 
-        @* this built-in component will display any form validation errors *@
-        <ValidationSummary />
+        @*<ValidationInput @bind-Value="@Username"></ValidationInput>*@
+        <InputText type="password" class="sign-input form-control" placeholder="Password" @bind-Value="User.Password" />
+        <ValidationMessage For="@(() => User.Password)"></ValidationMessage>
+
+        @* this built-in component will display together all form validation errors *@
+        @*<ValidationSummary />*@
         <button class="sign-button btn btn-primary" type="submit">Sign In</button>
     </EditForm>
 
