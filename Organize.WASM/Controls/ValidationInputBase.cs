@@ -14,6 +14,9 @@ namespace Organize.WASM.Controls
         [Parameter]
         public EventCallback<string> ValueChanged { get; set; }
 
+        [Parameter]
+        public string Error { get; set; }
+
         protected async void HandleInputChanged(ChangeEventArgs eventArgs)
         {
             await ValueChanged.InvokeAsync(eventArgs.Value.ToString());

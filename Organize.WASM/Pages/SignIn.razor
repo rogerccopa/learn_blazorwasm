@@ -3,17 +3,19 @@
 
 <div class="sign-form">
     <p class="welcome-text">Hello @(string.IsNullOrEmpty(User.Username) ? "User": User.Username) - Today is @Day</p>
-    <EditForm Model="@User">
+    <EditForm EditContext="SignInEditContext">
         @* this built-in component will validate each form field against the Model (i.e. User) attribute annotations *@
         <DataAnnotationsValidator />
 
         @* @bind-value refers to HTML <input value="..." but, @bind-Value refers to this <InputText value property *@
-        <InputText type="text" class="sign-input form-control" placeholder="Username" @bind-Value="User.Username" />
-        <ValidationMessage For="@(() => User.Username)"></ValidationMessage>
+        @*<InputText type="text" class="sign-input form-control" placeholder="Username" @bind-Value="User.Username" />
+        <ValidationMessage For="@(() => User.Username)"></ValidationMessage>*@
+        <ValidationInput @bind-Value="@User.Username" Error="@GetError(() => User.Username)"></ValidationInput>
 
         @*<ValidationInput @bind-Value="@Username"></ValidationInput>*@
-        <InputText type="password" class="sign-input form-control" placeholder="Password" @bind-Value="User.Password" />
-        <ValidationMessage For="@(() => User.Password)"></ValidationMessage>
+        @*<InputText type="password" class="sign-input form-control" placeholder="Password" @bind-Value="User.Password" />
+        <ValidationMessage For="@(() => User.Password)"></ValidationMessage>*@
+        <ValidationInput @bind-Value="@User.Password" Error="@GetError(() => User.Password)"></ValidationInput>
 
         @* this built-in component will display together all form validation errors *@
         @*<ValidationSummary />*@
