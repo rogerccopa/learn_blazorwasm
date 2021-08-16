@@ -9,14 +9,21 @@
 
         @* @bind-value refers to HTML <input value="..." but, @bind-Value refers to this <InputText value property *@
         @*<InputText type="text" class="sign-input form-control" placeholder="Username" @bind-Value="User.Username" />
-        <ValidationMessage For="@(() => User.Username)"></ValidationMessage>*@
-        <ValidationInput @bind-Value="@User.Username" Error="@GetError(() => User.Username)"></ValidationInput>
+            <ValidationMessage For="@(() => User.Username)"></ValidationMessage>*@
+        <div class="sign-validation">
+            <ValidationInput @bind-Value="@User.Username"
+                             Error="@GetError(() => User.Username)"></ValidationInput>
+        </div>
 
         @*<ValidationInput @bind-Value="@Username"></ValidationInput>*@
         @*<InputText type="password" class="sign-input form-control" placeholder="Password" @bind-Value="User.Password" />
-        <ValidationMessage For="@(() => User.Password)"></ValidationMessage>*@
-        <ValidationInput @bind-Value="@User.Password" Error="@GetError(() => User.Password)"></ValidationInput>
-
+            <ValidationMessage For="@(() => User.Password)"></ValidationMessage>*@
+        <div class="sign-validation">
+            <ValidationInput type="password"
+                             placeholder="Password"
+                             @bind-Value="@User.Password"
+                             Error="@GetError(() => User.Password)"></ValidationInput>
+        </div>
         @* this built-in component will display together all form validation errors *@
         @*<ValidationSummary />*@
         <button class="sign-button btn btn-primary" type="submit">Sign In</button>

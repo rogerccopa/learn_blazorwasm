@@ -9,7 +9,8 @@ namespace Organize.Shared.Entities
 {
     public class User
     {
-        [Required(ErrorMessage = "The username is required")]
+        [Required]
+        [StringLength(10, ErrorMessage = "Username is too long")]
         public string Username { get; set; }
         [Required(ErrorMessage = "The password is required!!")]
         public string Password { get; set; }
