@@ -1,0 +1,38 @@
+﻿@page "/signup"
+@inherits SignInBase
+
+<div class="sign-form">
+    <EditForm EditContext="MyEditContext">
+        @* this built-in component will validate each form field against the Model (i.e. User) attribute annotations *@
+        <DataAnnotationsValidator />
+
+        <div class="sign-validation">
+            <ValidationInput placeholder="Username"
+                             @bind-Value="@User.Username"
+                             Error="@GetError(() => User.Username)"></ValidationInput>
+        </div>
+        <div class="sign-validation">
+            <ValidationInput type="password"
+                             placeholder="Password"
+                             @bind-Value="@User.Password"
+                             Error="@GetError(() => User.Password)"></ValidationInput>
+        </div>
+        <div class="sign-validation">
+            <ValidationInput placeholder="First name"
+                             @bind-Value="@User.FirstName"
+                             Error="@GetError(() => User.FirstName)"></ValidationInput>
+        </div>
+        <div class="sign-validation">
+            <ValidationInput placeholder="Last name"
+                             @bind-Value="@User.LastName"
+                             Error="@GetError(() => User.LastName)"></ValidationInput>
+        </div>
+        <div class="sign-validation">
+            <ValidationInput placeholder="Phone number"
+                             @bind-Value="@User.PhoneNumber"
+                             Error="@GetError(() => User.PhoneNumber)"></ValidationInput>
+        </div>
+
+        <button class="sign-button btn btn-primary" type="submit">Sign Up</button>
+    </EditForm>
+</div>

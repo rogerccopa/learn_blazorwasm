@@ -12,7 +12,19 @@ namespace Organize.Shared.Entities
         [Required]
         [StringLength(10, ErrorMessage = "Username is too long")]
         public string Username { get; set; }
+
         [Required(ErrorMessage = "The password is required!!")]
         public string Password { get; set; }
+
+        [Required]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        [Phone]
+        public string PhoneNumber { get; set; }
+        
     }
 }
