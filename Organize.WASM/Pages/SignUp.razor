@@ -1,5 +1,5 @@
 ﻿@page "/signup"
-@inherits SignInBase
+@inherits SignUpBase
 
 <div class="sign-form">
     <EditForm EditContext="MyEditContext">
@@ -31,6 +31,12 @@
             <ValidationInput placeholder="Phone number"
                              @bind-Value="@User.PhoneNumber"
                              Error="@GetError(() => User.PhoneNumber)"></ValidationInput>
+        </div>
+        <div class="sign-validation">
+            <Dropdown T="GenderType"
+                      @bind-SelectedItem="@SelectedGenderTypeItem"
+                      SelectableItems="@GenderTypeItems">
+            </Dropdown>
         </div>
 
         <button class="sign-button btn btn-primary" type="submit">Sign Up</button>
