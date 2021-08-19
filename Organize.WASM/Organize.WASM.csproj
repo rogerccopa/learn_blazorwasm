@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GeneralUI\GeneralUI.csproj" />
+    <ProjectReference Include="..\Organize.BusinessLogic\Organize.BusinessLogic.csproj" />
     <ProjectReference Include="..\Organize.Shared\Organize.Shared.csproj" />
   </ItemGroup>
 

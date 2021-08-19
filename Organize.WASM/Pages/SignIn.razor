@@ -3,7 +3,7 @@
 
 <div class="sign-form">
     <p class="welcome-text">Hello @(string.IsNullOrEmpty(User.Username) ? "User": User.Username) - Today is @Day</p>
-    <EditForm EditContext="MyEditContext">
+    <EditForm EditContext="MyEditContext" OnSubmit="MyOnSubmit">
         @* this built-in component will validate each form field against the Model (i.e. User) attribute annotations *@
         <DataAnnotationsValidator />
 

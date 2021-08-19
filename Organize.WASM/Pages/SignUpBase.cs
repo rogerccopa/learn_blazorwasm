@@ -17,7 +17,7 @@ namespace Organize.WASM.Pages
         protected DropdownItem<GenderType> SelectedGenderTypeItem { get; set; }
 
         [Inject]
-        private NavigationManager navigationManager { get; set; }
+        private NavigationManager NavigationManager { get; set; }
 
         protected override void OnInitialized()
         {
@@ -51,7 +51,7 @@ namespace Organize.WASM.Pages
 
         private void TryGetUsernameFromUri()
         {
-            System.Uri uri = navigationManager.ToAbsoluteUri(navigationManager.Uri);
+            System.Uri uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
             StringValues sv;
             if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("username", out sv))
             {
