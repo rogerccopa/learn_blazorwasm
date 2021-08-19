@@ -31,6 +31,6 @@
     </EditForm>
 
     <div class="signup">
-        <a href="/signup">Sign Up</a>
+        <a href="@(User.Username != null ? $"/signup?username={User.Username}" : "/signup")">Sign Up</a>
     </div>
 </div>
