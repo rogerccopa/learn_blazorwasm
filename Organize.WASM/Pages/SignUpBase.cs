@@ -9,12 +9,15 @@ namespace Organize.WASM.Pages
 {
     public class SignUpBase : SignBase
     {
-        [Inject]
-        private NavigationManager navigationManager { get; set; }
+        [Parameter]
+        public string Username { get; set; }
 
         protected IList<DropdownItem<GenderType>> GenderTypeItems { get; } = new List<DropdownItem<GenderType>>();
 
         protected DropdownItem<GenderType> SelectedGenderTypeItem { get; set; }
+
+        [Inject]
+        private NavigationManager navigationManager { get; set; }
 
         protected override void OnInitialized()
         {
@@ -42,7 +45,8 @@ namespace Organize.WASM.Pages
 
             SelectedGenderTypeItem = female;
 
-            TryGetUsernameFromUri();
+            //TryGetUsernameFromUri();
+            User.Username = Username;
         }
 
         private void TryGetUsernameFromUri()
