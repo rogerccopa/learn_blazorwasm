@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Organize.BusinessLogic;
 using Organize.Shared.Contracts;
+using Organize.TestFake;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -20,9 +21,18 @@ namespace Organize.WASM
             builder.RootComponents.Add<App>("#app");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddSingleton<IUserManager, UserManager>();
 
-            await builder.Build().RunAsync();
+            //builder.Services.AddSingleton<IUserManager, UserManager>();
+            builder.Services.AddScoped<IUserManager, UserManagerFake>();
+
+            builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+
+            var host = builder.Build();
+            var currentUserService = host.Services.GetRequiredService<ICurrentUserService>();
+            TestData.CreateTestUser();
+            currentUserService.CurrentUser = TestData.TestUser;
+
+            await host.RunAsync();
         }
     }
 }

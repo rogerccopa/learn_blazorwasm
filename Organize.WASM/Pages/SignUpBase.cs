@@ -46,7 +46,7 @@ namespace Organize.WASM.Pages
             SelectedGenderTypeItem = female;
 
             //TryGetUsernameFromUri();
-            User.Username = Username;
+            User.UserName = Username;
         }
 
         private void TryGetUsernameFromUri()
@@ -55,7 +55,7 @@ namespace Organize.WASM.Pages
             StringValues sv;
             if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("username", out sv))
             {
-                User.Username = sv;
+                User.UserName = sv;
             }
         }
     }
