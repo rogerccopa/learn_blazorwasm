@@ -31,5 +31,21 @@ namespace Organize.Shared.Entities
         public GenderType GenderType { get; set; }
 
         public ObservableCollection<BaseItem> UserItems { get; set; }
+
+        public override string ToString()
+        {
+            string salutation = string.Empty;
+
+            if (GenderType == GenderType.Male)
+            {
+                salutation = "Mr";
+            }
+            if (GenderType == GenderType.Female)
+            {
+                salutation = "Mrs";
+            }
+
+            return $"{salutation}. {FirstName} {LastName}";
+        }
     }
 }

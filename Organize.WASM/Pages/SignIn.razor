@@ -2,7 +2,7 @@
 @inherits SignInBase
 
 <div class="sign-form">
-    <p class="welcome-text">Hello @(string.IsNullOrEmpty(User.Username) ? "User": User.Username) - Today is @Day</p>
+    <p class="welcome-text">Hello @(string.IsNullOrEmpty(User.UserName) ? "User": User.UserName) - Today is @Day</p>
     <EditForm EditContext="MyEditContext" OnSubmit="MyOnSubmit">
         @* this built-in component will validate each form field against the Model (i.e. User) attribute annotations *@
         <DataAnnotationsValidator />
@@ -11,9 +11,9 @@
         @*<InputText type="text" class="sign-input form-control" placeholder="Username" @bind-Value="User.Username" />
             <ValidationMessage For="@(() => User.Username)"></ValidationMessage>*@
         <div class="sign-validation">
-            <ValidationInput @bind-Value="@User.Username"
+            <ValidationInput @bind-Value="@User.UserName"
                              placeholder="Username"
-                             Error="@GetError(() => User.Username)"></ValidationInput>
+                             Error="@GetError(() => User.UserName)"></ValidationInput>
         </div>
 
         @*<ValidationInput @bind-Value="@Username"></ValidationInput>*@
@@ -32,6 +32,6 @@
 
     <div class="signup">
         @*<a href="@(User.Username != null ? $"/signup?username={User.Username}" : "/signup")">Sign Up</a>*@
-        <a href="@(User.Username != null ? $"/signup/{User.Username}" : "/signup")">Sign Up</a>
+        <a href="@(User.UserName != null ? $"/signup/{User.UserName}" : "/signup")">Sign Up</a>
     </div>
 </div>

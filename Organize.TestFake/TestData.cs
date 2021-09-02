@@ -33,7 +33,7 @@ namespace Organize.TestFake
             textItem.ItemType = ItemType.Text;
             textItem.Position = 1;
 
-            var urlItem = new UrlItem;
+            var urlItem = new UrlItem();
             urlItem.ParentId = user.Id;
             user.UserItems.Add(urlItem);
             urlItem.Id = 2;
