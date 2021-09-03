@@ -11,5 +11,14 @@ namespace Organize.WASM.Components
     {
         [Parameter]
         public TItem Item { get; set; }
+
+        public string DetailAreaId { get; set; }
+
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            DetailAreaId = "detailArea" + Item.Position;
+        }
     }
 }
