@@ -29,7 +29,8 @@ namespace Organize.TestFake
             user.UserItems.Add(textItem);
             textItem.Id = 1;
             textItem.Title = "Buy Apples";
-            textItem.SubTitle = "From New Zealand preferred";
+            textItem.SubTitle = "Red | 5";
+            textItem.Detail = "From New Zealand preferred";
             textItem.ItemType = ItemType.Text;
             textItem.Position = 1;
 

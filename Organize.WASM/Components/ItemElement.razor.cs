@@ -10,6 +10,12 @@ namespace Organize.WASM.Components
     public partial class ItemElement<TItem> : ComponentBase where TItem: BaseItem
     {
         [Parameter]
+        public RenderFragment MainFragment { get; set; }
+
+        [Parameter]
+        public RenderFragment DetailFragment { get; set; }
+
+        [Parameter]
         public TItem Item { get; set; }
 
         public string DetailAreaId { get; set; }
