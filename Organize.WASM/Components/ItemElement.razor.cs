@@ -18,6 +18,9 @@ namespace Organize.WASM.Components
         [Parameter]
         public TItem Item { get; set; }
 
+        [CascadingParameter]
+        public string ColorPrefix { get; set; }
+
         public string DetailAreaId { get; set; }
 
         protected override void OnParametersSet()
