@@ -11,5 +11,8 @@ namespace Organize.WASM.Components
     {
         [Parameter]
         public BaseItem Item { get; set; }
+
+        [CascadingParameter]
+        public string ColorPrefix { get; set; }
     }
 }

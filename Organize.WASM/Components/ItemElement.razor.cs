@@ -21,6 +21,9 @@ namespace Organize.WASM.Components
         [CascadingParameter]
         public string ColorPrefix { get; set; }
 
+        [CascadingParameter(Name = "TotalItemsCount")]
+        public int TotalItems { get; set; }
+
         public string DetailAreaId { get; set; }
 
         protected override void OnParametersSet()
