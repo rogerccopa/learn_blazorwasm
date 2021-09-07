@@ -1,5 +1,7 @@
-﻿<h3>ItemEdit</h3>
+﻿<div class="item-edit-info">
+    <div class="item-edit-info-text">Type:@Item.ItemType.ToString()</div>
+    <div class="item-edit-info-count">@Item.Position/@TotalNumber</div>
+</div>
 
-@code {
-
-}
+<label for="title">Title</label>
+<input id="title" type="text" class="item-edit-input" @bind-value="@Item.Title" />
