@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Organize.Shared.Entities;
+using Organize.WASM.ItemEdit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,9 @@ namespace Organize.WASM.Components
         [CascadingParameter(Name = "TotalItemsCount")]
         public int TotalItems { get; set; }
 
+        [Inject]
+        public ItemEditService ItemEditService { get; set; }
+
         public string DetailAreaId { get; set; }
 
         protected override void OnParametersSet()
@@ -31,6 +35,11 @@ namespace Organize.WASM.Components
             base.OnParametersSet();
 
             DetailAreaId = "detailArea" + Item.Position;
+        }
+
+        private void OpenItemInEditMode()
+        {
+            ItemEditService.EditItem = Item;
         }
     }
 }

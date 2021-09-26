@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Organize.Shared.Contracts;
 using Organize.Shared.Entities;
+using Organize.WASM.ItemEdit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +16,9 @@ namespace Organize.WASM.Components
         [Inject]
         public ICurrentUserService CurrentUserService { get; set; }
 
+        [Inject]
+        private ItemEditService ItemEditService { get; set; }
+
         protected ObservableCollection<BaseItem> UserItems { get; set; } = new ObservableCollection<BaseItem>();
 
         protected override void OnInitialized()
@@ -24,6 +28,11 @@ namespace Organize.WASM.Components
             Console.WriteLine(UserItems.Count);
             Console.WriteLine(UserItems);
             Console.WriteLine(JsonSerializer.Serialize(UserItems));
+        }
+
+        private void OnBackgroundClicked()
+        {
+            ItemEditService.EditItem = null;
         }
     }
 }

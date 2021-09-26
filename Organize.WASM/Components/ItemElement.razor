@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="main-container">
-            <div class="main-fragment">
+            <div class="main-fragment" @onclick="OpenItemInEditMode" @onclick:stopPropagation>
                 @MainFragment
             </div>
             <div class="position">@Item.Position/@TotalItems</div>
