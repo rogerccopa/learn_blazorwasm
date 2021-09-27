@@ -25,8 +25,10 @@ namespace Organize.WASM.Components
         [CascadingParameter(Name = "TotalItemsCount")]
         public int TotalItems { get; set; }
 
+        //[Inject]
+        //public ItemEditService ItemEditService { get; set; }
         [Inject]
-        public ItemEditService ItemEditService { get; set; }
+        private NavigationManager MyNavigationManager { get; set; }
 
         public string DetailAreaId { get; set; }
 
@@ -39,7 +41,10 @@ namespace Organize.WASM.Components
 
         private void OpenItemInEditMode()
         {
-            ItemEditService.EditItem = Item;
+            //ItemEditService.EditItem = Item;
+
+            Uri.TryCreate("/items/" + Item.ItemType + "/" + Item.Id, UriKind.Relative, out var uri);
+            MyNavigationManager.NavigateTo(uri.ToString());
         }
     }
 }
