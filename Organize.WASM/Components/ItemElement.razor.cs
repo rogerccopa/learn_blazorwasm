@@ -3,6 +3,7 @@ using Organize.Shared.Entities;
 using Organize.WASM.ItemEdit;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -37,6 +38,21 @@ namespace Organize.WASM.Components
             base.OnParametersSet();
 
             DetailAreaId = "detailArea" + Item.Position;
+        }
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+
+            if (firstRender)
+            {
+                Item.PropertyChanged += HandleItemPropertyChanged;
+            }
+        }
+
+        private void HandleItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            StateHasChanged();
         }
 
         private void OpenItemInEditMode()

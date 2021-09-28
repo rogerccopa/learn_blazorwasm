@@ -25,6 +25,7 @@ namespace Organize.WASM
 
             //builder.Services.AddSingleton<IUserManager, UserManager>();
             builder.Services.AddScoped<IUserManager, UserManagerFake>();
+            builder.Services.AddScoped<IUserItemManager, UserItemManager>();
 
             builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 

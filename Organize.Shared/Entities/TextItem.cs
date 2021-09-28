@@ -8,7 +8,16 @@ namespace Organize.Shared.Entities
 {
     public class TextItem : BaseItem
     {
-        public string SubTitle { get; set; }
-        public string Detail { get; set; }
+        public string SubTitle { 
+            get => _subtitle; 
+            set => SetProperty<string>(ref _subtitle, value); 
+        }
+        private string _subtitle;
+
+        public string Detail { 
+            get => _detail; 
+            set => SetProperty(ref _detail, value); 
+        }
+        private string _detail;
     }
 }
