@@ -13,3 +13,12 @@
         </div>
     }
 </div>
+
+<div class="item-add-box fixed-bottom">
+    <div class="dropdown item-add-input">
+        <Dropdown T="Organize.Shared.Enums.ItemType"
+                  SelectableItems="DropDownTypes"
+                  SelectedItemChanged="@(args => SelectedDropDownType = args)" />
+    </div>
+    <button class="orga-button" @onclick="AddNewAsync" disabled="@(SelectedDropDownType == null)">Add</button>
+</div>

@@ -1,4 +1,5 @@
 ﻿using Organize.Shared.Entities;
+using Organize.Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace Organize.Shared.Contracts
     public interface IUserItemManager
     {
         public Task<ChildItem> CreateNewChildItemAndAddItToParentItemAsync(ParentItem parent);
+        public Task<BaseItem> CreateNewUserItemAndAddItToUserAsync(User user, ItemType typeEnum);
     }
 }

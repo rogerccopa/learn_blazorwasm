@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Organize.WASM.Components
 {
-    public partial class ItemElement<TItem> : ComponentBase where TItem: BaseItem
+    public partial class ItemElement<TItem> : ComponentBase, IDisposable where TItem: BaseItem
     {
         [Parameter]
         public RenderFragment MainFragment { get; set; }
@@ -61,6 +61,11 @@ namespace Organize.WASM.Components
 
             Uri.TryCreate("/items/" + Item.ItemType + "/" + Item.Id, UriKind.Relative, out var uri);
             MyNavigationManager.NavigateTo(uri.ToString());
+        }
+
+        public void Dispose()
+        {
+            Item.PropertyChanged -= HandleItemPropertyChanged;
         }
     }
 }
