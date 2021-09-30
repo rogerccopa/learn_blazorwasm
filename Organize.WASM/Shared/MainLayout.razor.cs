@@ -8,13 +8,17 @@ using System.Threading.Tasks;
 
 namespace Organize.WASM.Shared
 {
-    public partial class MainLayout : LayoutComponentBase
+    public partial class MainLayout : LayoutComponentBase, IDisposable
     {
+        private DotNetObjectReference<MainLayout> _dotnetReference;
+
         [Inject]
         private ICurrentUserService CurrentUserService { get; set; }
 
         [Inject]
         private IJSRuntime JSRuntime { get; set; }
+
+        public bool UseShortNavText { get; set; }
 
         protected void SignOut()
         {
@@ -27,24 +31,39 @@ namespace Organize.WASM.Shared
 
             // blazorDimension is a global JavaScript object
             var jsWindowWidth = await JSRuntime.InvokeAsync<int>("blazorDimension.getWidth");
+            CheckUseShortNavText(jsWindowWidth);
 
-            Console.WriteLine($"width received from js: {jsWindowWidth}");
-
-            var reference = DotNetObjectReference.Create(this);
-            await JSRuntime.InvokeVoidAsync("blazorResize.registerReferenceForResizeEvent", reference);
+            _dotnetReference = DotNetObjectReference.Create(this);
+            await JSRuntime.InvokeVoidAsync("blazorResize.registerReferenceForResizeEvent", _dotnetReference);
         }
 
         [JSInvokable]
         public static void OnResize()
         {
-            Console.WriteLine("OnResize from C#.Net");
+            
         }
 
         [JSInvokable]
         public void HandleResize(int width, int height)
         {
-            Console.WriteLine($"C# received width: {width}");
-            Console.WriteLine($"C# received height: {height}");
+            CheckUseShortNavText(width);
+
+        }
+
+        private void CheckUseShortNavText(int width)
+        {
+            var oldValue = UseShortNavText;
+            UseShortNavText = width < 700;
+
+            if (oldValue != UseShortNavText)
+            {
+                StateHasChanged();
+            }
+        }
+
+        public void Dispose()
+        {
+            _dotnetReference?.Dispose();
         }
     }
 }
