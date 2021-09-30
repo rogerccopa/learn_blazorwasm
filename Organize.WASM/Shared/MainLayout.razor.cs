@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using Organize.Shared.Contracts;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,12 @@ namespace Organize.WASM.Shared
         protected void SignOut()
         {
 
+        }
+
+        [JSInvokable]
+        public static void OnResize()
+        {
+            Console.WriteLine("OnResize from C#.Net");
         }
     }
 }
