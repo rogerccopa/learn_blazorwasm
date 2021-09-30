@@ -13,9 +13,22 @@ namespace Organize.WASM.Shared
         [Inject]
         private ICurrentUserService CurrentUserService { get; set; }
 
+        [Inject]
+        private IJSRuntime JSRuntime { get; set; }
+
         protected void SignOut()
         {
 
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
+
+            // blazorDimension is a global JavaScript object
+            var jsWindowWidth = await JSRuntime.InvokeAsync<int>("blazorDimension.getWidth");
+
+            Console.WriteLine($"width received from js: {jsWindowWidth}");
         }
 
         [JSInvokable]
