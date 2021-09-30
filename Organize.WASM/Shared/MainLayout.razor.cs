@@ -29,12 +29,22 @@ namespace Organize.WASM.Shared
             var jsWindowWidth = await JSRuntime.InvokeAsync<int>("blazorDimension.getWidth");
 
             Console.WriteLine($"width received from js: {jsWindowWidth}");
+
+            var reference = DotNetObjectReference.Create(this);
+            await JSRuntime.InvokeVoidAsync("blazorResize.registerReferenceForResizeEvent", reference);
         }
 
         [JSInvokable]
         public static void OnResize()
         {
             Console.WriteLine("OnResize from C#.Net");
+        }
+
+        [JSInvokable]
+        public void HandleResize(int width, int height)
+        {
+            Console.WriteLine($"C# received width: {width}");
+            Console.WriteLine($"C# received height: {height}");
         }
     }
 }
