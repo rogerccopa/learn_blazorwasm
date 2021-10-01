@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Organize.WASM.Components
 {
@@ -29,12 +30,26 @@ namespace Organize.WASM.Components
         private BaseItem Item { get; set; } = new BaseItem();
         private int TotalNumber { get; set; }
 
+        private Timer _debounceTimer;
+
         protected override void OnInitialized()
         {
             base.OnInitialized();
+
+            _debounceTimer = new Timer();
+            _debounceTimer.Interval = 500;
+            _debounceTimer.AutoReset = false;
+            _debounceTimer.Elapsed += HandleDebounceTimerElapsed;
+
             //ItemEditService.EditItemChanged += HandleEditItem;
             //Item = ItemEditService.EditItem;
             SetDataFromUri();
+        }
+
+        private void HandleDebounceTimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            Console.WriteLine("Timer elapsed");
+            userItemManager.UpdateAsync(Item);
         }
 
         //private void HandleEditItem(object sender, ItemEditEventArgs e)
@@ -77,9 +92,15 @@ namespace Organize.WASM.Components
             }
         }
 
-        private async void HandleItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void HandleItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            await userItemManager.UpdateAsync(Item);
+            //await userItemManager.UpdateAsync(Item);
+
+            if (_debounceTimer != null)
+            {
+                _debounceTimer.Stop();
+                _debounceTimer.Start();
+            }
         }
 
         private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
@@ -89,6 +110,7 @@ namespace Organize.WASM.Components
 
         public void Dispose()
         {
+            _debounceTimer?.Dispose();
             MyNavigationManager.LocationChanged -= HandleLocationChanged;
             Item.PropertyChanged -= HandleItemPropertyChanged;
         }
