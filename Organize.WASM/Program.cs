@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Organize.BusinessLogic;
+using Organize.DataAccess;
+using Organize.InMemoryStorage;
 using Organize.Shared.Contracts;
 using Organize.TestFake;
 using Organize.WASM.ItemEdit;
@@ -27,14 +29,26 @@ namespace Organize.WASM
             builder.Services.AddScoped<IUserManager, UserManagerFake>();
             builder.Services.AddScoped<IUserItemManager, UserItemManager>();
 
+            builder.Services.AddScoped<IItemDataAccess, ItemDataAccess>();
+            builder.Services.AddScoped<IPersistanceService, InMemoryStorage.InMemoryStorage>();
+
             builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             builder.Services.AddScoped<ItemEditService>();
 
             var host = builder.Build();
+
+            var persistanceService = host.Services.GetRequiredService<IPersistanceService>();
+            await persistanceService.InitAsync();
+
             var currentUserService = host.Services.GetRequiredService<ICurrentUserService>();
-            TestData.CreateTestUser();
-            currentUserService.CurrentUser = TestData.TestUser;
+            var userItemManager = host.Services.GetRequiredService<IUserItemManager>();
+
+            if (persistanceService is InMemoryStorage.InMemoryStorage)
+            {
+                TestData.CreateTestUser(userItemManager);
+                currentUserService.CurrentUser = TestData.TestUser;
+            }
 
             await host.RunAsync();
         }
