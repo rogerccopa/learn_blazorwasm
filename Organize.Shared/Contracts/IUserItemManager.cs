@@ -14,5 +14,6 @@ namespace Organize.Shared.Contracts
         public Task<BaseItem> CreateNewUserItemAndAddItToUserAsync(User user, ItemType typeEnum);
         Task RetrieveAllUserItemsOfUserAndSetToUserAsync(User user);
         Task UpdateAsync<T>(T item) where T : BaseItem;
+        Task DeleteAllDoneAsync(User user);
     }
 }

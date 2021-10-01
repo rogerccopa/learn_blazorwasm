@@ -3,10 +3,9 @@ using Organize.Shared.Entities;
 using Organize.Shared.Enums;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Organize.BusinessLogic
 {
@@ -109,6 +108,34 @@ namespace Organize.BusinessLogic
                 case ChildItem childItem:
                     await _itemDataAccess.UpdateItemAsync(childItem);
                     break;
+            }
+        }
+
+        public async Task DeleteAllDoneAsync(User user)
+        {
+            var doneItems = user.UserItems.Where(i => i.IsDone).ToList();
+            Console.WriteLine("Done items count: " + doneItems.Count);
+
+            var doneParentItem = doneItems.OfType<ParentItem>().ToList();
+            var allChildItems = doneParentItem.SelectMany(p => p.ChildItems).ToList();
+
+            await _itemDataAccess.DeleteItemsAsync(allChildItems);
+            await _itemDataAccess.DeleteItemsAsync(doneParentItem);
+            await _itemDataAccess.DeleteItemsAsync(doneItems.OfType<TextItem>());
+            await _itemDataAccess.DeleteItemsAsync(doneItems.OfType<UrlItem>());
+
+            foreach (var doneItem in doneItems)
+            {
+                user.UserItems.Remove(doneItem);
+            }
+
+            var sortedByPosition = user.UserItems.OrderBy(i => i.Position);
+            var position = 1;
+            foreach (var item in sortedByPosition)
+            {
+                item.Position = position;
+                position++;
+                await UpdateAsync(item);
             }
         }
     }
